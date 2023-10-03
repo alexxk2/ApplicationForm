@@ -5,6 +5,7 @@ import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.navigation.fragment.findNavController
 import com.example.applicationform.databinding.FragmentStartBinding
 
 
@@ -33,6 +34,10 @@ class StartFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
+        binding.btnSendApplication.setOnClickListener {
+            val action = StartFragmentDirections.actionStartFragmentToApplicationFragment()
+            findNavController().navigate(action)
+        }
     }
 
         override fun onDestroyView() {
