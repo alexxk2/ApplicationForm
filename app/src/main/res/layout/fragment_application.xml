@@ -5,6 +5,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="@color/light_grey"
+    android:id="@+id/application_constraint_layout"
     tools:context=".presentation.application.ui.ApplicationFragment">
 
 
@@ -33,7 +34,7 @@
         app:layout_constraintTop_toTopOf="@+id/arrow_back_button" />
 
     <androidx.constraintlayout.widget.ConstraintLayout
-        android:id="@+id/ll_application"
+        android:id="@+id/cl_application"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:layout_marginHorizontal="16dp"
@@ -45,18 +46,17 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/tv_title_text">
 
-
-        <EditText
-            android:backgroundTint="@color/green"
-            android:id="@+id/et_street"
-            android:layout_width="match_parent"
-            android:layout_height="64dp"
-            android:autofillHints="false"
+        <AutoCompleteTextView
+            android:id="@+id/auto_street_text"
+            android:dropDownAnchor="@id/auto_street_text"
             android:hint="@string/choose_street"
-            android:inputType="text"
-            android:paddingHorizontal="5dp"
             android:paddingStart="20dp"
-            app:layout_constraintTop_toTopOf="parent" />
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            android:layout_width="match_parent"
+            android:layout_height="64dp"/>
+
 
         <ImageButton
             android:layout_width="wrap_content"
@@ -66,9 +66,9 @@
             android:contentDescription="@string/close_button"
             android:src="@drawable/ic_close"
             android:visibility="gone"
-            app:layout_constraintBottom_toBottomOf="@+id/et_street"
-            app:layout_constraintEnd_toEndOf="@+id/et_street"
-            app:layout_constraintTop_toTopOf="@+id/et_street"
+            app:layout_constraintBottom_toBottomOf="@+id/auto_street_text"
+            app:layout_constraintEnd_toEndOf="@+id/auto_street_text"
+            app:layout_constraintTop_toTopOf="@+id/auto_street_text"
             tools:visibility="visible" />
 
 
@@ -77,13 +77,17 @@
             style="@style/Widget.Material3.TextInputLayout.FilledBox.ExposedDropdownMenu"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/default_margin"
             android:layout_marginHorizontal="4dp"
             android:hint="@string/choose_house"
+            tools:visibility="visible"
+            android:visibility="gone"
             app:boxBackgroundColor="@color/white"
             app:endIconMode="dropdown_menu"
             android:backgroundTint="@color/black"
-            app:hintTextColor="@color/black"
-            app:layout_constraintTop_toBottomOf="@id/et_street">
+            app:hintTextColor="@color/transparent"
+            android:textColorHint="@color/black"
+            app:layout_constraintTop_toBottomOf="@id/auto_street_text">
 
             <AutoCompleteTextView
                 android:id="@+id/auto_text_house"
@@ -182,6 +186,8 @@
 
         </LinearLayout>
 
+
+
     </androidx.constraintlayout.widget.ConstraintLayout>
 
     <Button
@@ -189,10 +195,11 @@
         style="@style/CreateNewPlaylistButton"
         android:layout_width="0dp"
         android:layout_height="60dp"
+        android:enabled="false"
         android:layout_marginTop="@dimen/default_margin"
         android:theme="@style/Theme.MaterialComponents.DayNight"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/ll_application" />
+        app:layout_constraintTop_toBottomOf="@+id/cl_application" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>
