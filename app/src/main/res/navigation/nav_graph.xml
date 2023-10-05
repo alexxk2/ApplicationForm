@@ -18,14 +18,5 @@
         android:id="@+id/applicationFragment"
         android:name="com.example.applicationform.presentation.application.ui.ApplicationFragment"
         android:label="fragment_application"
-        tools:layout="@layout/fragment_application" >
-        <action
-            android:id="@+id/action_applicationFragment_to_resultFragment"
-            app:destination="@id/resultFragment" />
-    </fragment>
-    <fragment
-        android:id="@+id/resultFragment"
-        android:name="com.example.applicationform.presentation.result.ui.ResultFragment"
-        android:label="fragment_result"
-        tools:layout="@layout/fragment_result" />
+        tools:layout="@layout/fragment_application" />
 </navigation>

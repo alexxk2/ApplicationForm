@@ -1,6 +1,5 @@
 package com.example.applicationform.presentation.application.ui
 
-import android.annotation.SuppressLint
 import android.content.Context
 import android.os.Bundle
 import android.text.Editable
@@ -10,19 +9,14 @@ import android.view.View
 import android.view.ViewGroup
 import android.view.inputmethod.InputMethodManager
 import android.widget.ArrayAdapter
-import android.widget.Filter
-import android.widget.Filterable
-import android.widget.TextView
 import androidx.fragment.app.Fragment
 import androidx.navigation.fragment.findNavController
 import com.example.applicationform.R
 import com.example.applicationform.databinding.FragmentApplicationBinding
-import com.example.applicationform.domain.models.Street
 import com.example.applicationform.presentation.application.models.HouseInputState
 import com.example.applicationform.presentation.application.models.ScreenState
 import com.example.applicationform.presentation.application.view_model.ApplicationViewModel
 import com.google.android.material.snackbar.Snackbar
-import com.google.android.material.textfield.MaterialAutoCompleteTextView
 import org.koin.androidx.viewmodel.ext.android.viewModel
 
 
@@ -67,7 +61,7 @@ class ApplicationFragment : Fragment() {
                 viewModel.getHousesOnStreet(street)
             }
 
-            binding.autoStreetText.setAdapter(streetAdapter)
+            //binding.autoStreetText.setAdapter(streetAdapter)
         }
 
         viewModel.houses.observe(viewLifecycleOwner) { list ->
@@ -97,7 +91,10 @@ class ApplicationFragment : Fragment() {
             override fun beforeTextChanged(s: CharSequence?, start: Int, count: Int, after: Int) {}
 
             override fun onTextChanged(s: CharSequence?, start: Int, before: Int, count: Int) {
-                binding.autoStreetText.setAdapter(streetAdapter)
+                if (s.toString().length >= 3){
+                    binding.autoStreetText.setAdapter(streetAdapter)
+                }
+
                 viewModel.validateStreet(s.toString())
             }
 
