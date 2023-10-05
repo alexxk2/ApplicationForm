@@ -1,0 +1,199 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/light_grey"
+    android:id="@+id/application_constraint_layout"
+    tools:context=".presentation.application.ui.ApplicationFragment">
+
+
+    <ImageButton
+        android:id="@+id/arrow_back_button"
+        android:layout_width="@dimen/default_margin"
+        android:layout_height="@dimen/default_margin"
+        android:layout_marginStart="@dimen/default_margin"
+        android:layout_marginTop="@dimen/default_margin"
+        android:background="?android:attr/selectableItemBackgroundBorderless"
+        android:contentDescription="@string/arrow_back"
+        android:src="@drawable/icon_arrow_back"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <TextView
+        android:id="@+id/tv_title_text"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="@dimen/default_margin"
+        android:text="@string/application_title"
+        android:textAppearance="@style/TextAppearance.MaterialComponents.Headline6"
+        android:textSize="22sp"
+        app:layout_constraintBottom_toBottomOf="@+id/arrow_back_button"
+        app:layout_constraintStart_toEndOf="@id/arrow_back_button"
+        app:layout_constraintTop_toTopOf="@+id/arrow_back_button" />
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:id="@+id/cl_application"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginHorizontal="16dp"
+        android:layout_marginTop="@dimen/default_margin"
+        android:background="@drawable/application_background"
+        android:orientation="vertical"
+        android:padding="6dp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/tv_title_text">
+
+        <AutoCompleteTextView
+            android:id="@+id/auto_street_text"
+            android:dropDownAnchor="@id/auto_street_text"
+            android:hint="@string/choose_street"
+            android:paddingStart="20dp"
+            android:paddingVertical="24dp"
+            android:backgroundTint="@color/green"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"/>
+
+
+        <ImageButton
+            android:id="@+id/clear_button"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginEnd="16dp"
+            android:background="?android:attr/selectableItemBackgroundBorderless"
+            android:contentDescription="@string/close_button"
+            android:src="@drawable/ic_close"
+            android:visibility="gone"
+            app:layout_constraintBottom_toBottomOf="@+id/auto_street_text"
+            app:layout_constraintEnd_toEndOf="@+id/auto_street_text"
+            app:layout_constraintTop_toTopOf="@+id/auto_street_text"
+            tools:visibility="visible" />
+
+
+        <com.google.android.material.textfield.TextInputLayout
+            android:id="@+id/house_number_drop"
+            style="@style/Widget.Material3.TextInputLayout.FilledBox.ExposedDropdownMenu"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/default_margin"
+            android:layout_marginHorizontal="4dp"
+            android:hint="@string/choose_house"
+            tools:visibility="visible"
+            android:visibility="gone"
+            app:boxBackgroundColor="@color/white"
+            app:endIconMode="dropdown_menu"
+            android:backgroundTint="@color/black"
+            app:hintTextColor="@color/transparent"
+            android:textColorHint="@color/black"
+            app:layout_constraintTop_toBottomOf="@id/auto_street_text">
+
+            <AutoCompleteTextView
+                android:id="@+id/auto_text_house"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:inputType="text"
+                android:textSize="18sp" />
+
+        </com.google.android.material.textfield.TextInputLayout>
+
+        <LinearLayout
+            android:id="@+id/ll_additional_fields"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/default_margin"
+            android:orientation="horizontal"
+            app:layout_constraintTop_toBottomOf="@id/house_number_drop">
+
+            <com.google.android.material.textfield.TextInputLayout
+                android:id="@+id/tl_house"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginEnd="14dp"
+                android:layout_weight="30"
+                android:hint="@string/house"
+                android:textColorHint="@color/grey"
+                app:boxStrokeColor="@color/grey"
+                app:expandedHintEnabled="true"
+                app:hintAnimationEnabled="true"
+                app:hintEnabled="true"
+                app:hintTextColor="@color/black">
+
+                <com.google.android.material.textfield.TextInputEditText
+                    android:id="@+id/et_house"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:imeOptions="actionGo"
+                    android:inputType="number" />
+
+            </com.google.android.material.textfield.TextInputLayout>
+
+
+            <com.google.android.material.textfield.TextInputLayout
+                android:id="@+id/tl_sector"
+                android:layout_width="match_parent"
+                android:layout_height="64dp"
+                android:layout_marginEnd="14dp"
+                android:layout_weight="30"
+                android:hint="@string/sector"
+                android:textColorHint="@color/grey"
+                app:boxStrokeColor="@color/grey"
+                app:expandedHintEnabled="true"
+                app:hintAnimationEnabled="true"
+                app:hintEnabled="true"
+                app:hintTextColor="@color/black">
+
+                <com.google.android.material.textfield.TextInputEditText
+                    android:id="@+id/et_sector"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:imeOptions="actionGo"
+                    android:inputType="number" />
+            </com.google.android.material.textfield.TextInputLayout>
+
+
+            <com.google.android.material.textfield.TextInputLayout
+                android:id="@+id/tl_flat"
+                android:layout_width="match_parent"
+                android:layout_height="64dp"
+                android:layout_weight="30"
+                android:hint="@string/flat"
+                android:textColorHint="@color/grey"
+                app:boxStrokeColor="@color/grey"
+                app:expandedHintEnabled="true"
+                app:hintAnimationEnabled="true"
+                app:hintEnabled="true"
+                app:hintTextColor="@color/black">
+
+                <com.google.android.material.textfield.TextInputEditText
+                    android:id="@+id/et_flat"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:imeOptions="actionGo"
+                    android:inputType="number" />
+
+            </com.google.android.material.textfield.TextInputLayout>
+
+        </LinearLayout>
+
+
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
+    <Button
+        android:id="@+id/send_application_button"
+        style="@style/CreateNewPlaylistButton"
+        android:layout_width="0dp"
+        android:layout_height="60dp"
+        android:enabled="false"
+        android:layout_marginTop="@dimen/default_margin"
+        android:theme="@style/Theme.MaterialComponents.DayNight"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/cl_application" />
+
+</androidx.constraintlayout.widget.ConstraintLayout>
