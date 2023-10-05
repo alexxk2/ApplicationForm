@@ -66,7 +66,7 @@ class ApplicationViewModel(
         _screenState.postValue(ScreenState.StreetFromBase)
 
         viewModelScope.launch(Dispatchers.IO) {
-            _houses.postValue(getAllHousesUseCase.execute(street.streetId))
+            _houses.postValue(getAllHousesUseCase.execute(street.streetId).sortedBy { it.houseName})
             currentStreet = street
         }
     }
