@@ -44,6 +44,9 @@ class ApplicationFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
+        binding.autoStreetText.requestFocus()
+        showKeyBoard()
+
         viewModel.streets.observe(viewLifecycleOwner) { streets ->
             streetAdapter = StreetAdapter(
                 requireContext(), R.layout.text_item, streets
@@ -61,7 +64,6 @@ class ApplicationFragment : Fragment() {
                 viewModel.getHousesOnStreet(street)
             }
 
-            //binding.autoStreetText.setAdapter(streetAdapter)
         }
 
         viewModel.houses.observe(viewLifecycleOwner) { list ->
@@ -178,6 +180,12 @@ class ApplicationFragment : Fragment() {
         val inputMethodManager =
             activity?.getSystemService(Context.INPUT_METHOD_SERVICE) as InputMethodManager
         inputMethodManager.hideSoftInputFromWindow(binding.applicationConstraintLayout.windowToken, 0)
+    }
+
+    private fun showKeyBoard() {
+        val inputMethodManager =
+            activity?.getSystemService(Context.INPUT_METHOD_SERVICE) as InputMethodManager
+        inputMethodManager.showSoftInput(binding.autoStreetText, InputMethodManager.SHOW_IMPLICIT)
     }
 
     private fun changeClearButtonVisibility(input: Editable?){
