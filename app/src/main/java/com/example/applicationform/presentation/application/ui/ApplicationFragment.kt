@@ -1,5 +1,6 @@
 package com.example.applicationform.presentation.application.ui
 
+import android.annotation.SuppressLint
 import android.content.Context
 import android.os.Bundle
 import android.text.Editable
@@ -7,6 +8,7 @@ import android.text.TextWatcher
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.view.inputmethod.InputMethodManager
 import android.widget.ArrayAdapter
 import android.widget.Filter
 import android.widget.Filterable
@@ -16,6 +18,7 @@ import androidx.navigation.fragment.findNavController
 import com.example.applicationform.R
 import com.example.applicationform.databinding.FragmentApplicationBinding
 import com.example.applicationform.domain.models.Street
+import com.example.applicationform.presentation.application.models.HouseInputState
 import com.example.applicationform.presentation.application.models.ScreenState
 import com.example.applicationform.presentation.application.view_model.ApplicationViewModel
 import com.google.android.material.snackbar.Snackbar
@@ -78,10 +81,17 @@ class ApplicationFragment : Fragment() {
             )
         }
 
-        viewModel.screenState.observe(viewLifecycleOwner){state->
+        viewModel.screenState.observe(viewLifecycleOwner) { state ->
             manageContent(state)
         }
 
+        viewModel.houseInputState.observe(viewLifecycleOwner){state->
+            manageHouseInput(state)
+        }
+
+        viewModel.isButtonEnabled.observe(viewLifecycleOwner){isEnable->
+            manageSendButtonVisibility(isEnable)
+        }
 
         binding.autoStreetText.addTextChangedListener(object : TextWatcher {
             override fun beforeTextChanged(s: CharSequence?, start: Int, count: Int, after: Int) {}
@@ -91,6 +101,18 @@ class ApplicationFragment : Fragment() {
                 viewModel.validateStreet(s.toString())
             }
 
+            override fun afterTextChanged(s: Editable?) {
+                changeClearButtonVisibility(s)
+            }
+        })
+
+        binding.autoTextHouse.addTextChangedListener(object : TextWatcher {
+            override fun beforeTextChanged(s: CharSequence?, start: Int, count: Int, after: Int) {}
+
+            override fun onTextChanged(s: CharSequence?, start: Int, before: Int, count: Int) {
+                viewModel.validateHouse(s.toString())
+            }
+
             override fun afterTextChanged(s: Editable?) {}
         })
 
@@ -98,22 +120,108 @@ class ApplicationFragment : Fragment() {
         binding.arrowBackButton.setOnClickListener {
             findNavController().navigateUp()
         }
+
+        binding.clearButton.setOnClickListener {
+            binding.autoStreetText.setText("")
+        }
+
+        binding.sendApplicationButton.setOnClickListener {
+            hideKeyboard()
+            viewModel.sendApplication(requireContext())
+        }
+
+        addTextListenersForManualFields()
+
     }
 
-    private fun manageContent(screenState: ScreenState){
-        with(binding){
-        when(screenState){
-            ScreenState.StreetAndHouseFromBase -> {}
-            ScreenState.StreetFromBase -> {
-                houseNumberDrop.visibility = View.VISIBLE
+    private fun manageContent(screenState: ScreenState) {
+        with(binding) {
+            when (screenState) {
+                ScreenState.StreetAndHouseFromBase -> {
+                    houseNumberDrop.visibility = View.VISIBLE
+                    tlHouse.visibility = View.GONE
+                    tlSector.visibility = View.GONE
+                }
+
+                ScreenState.StreetFromBase -> {
+                    houseNumberDrop.visibility = View.VISIBLE
+                    tlHouse.visibility = View.VISIBLE
+                    tlSector.visibility = View.VISIBLE
+                }
+
+                ScreenState.StreetNotFromBase -> {
+                    houseNumberDrop.visibility = View.GONE
+                    tlHouse.visibility = View.VISIBLE
+                    tlSector.visibility = View.VISIBLE
+                }
+
             }
-            ScreenState.StreetNotFromBase -> {
-                houseNumberDrop.visibility = View.GONE
+        }
+    }
+
+
+    private fun manageHouseInput(houseInputState: HouseInputState) {
+        when (houseInputState) {
+            HouseInputState.Default -> {}
+            HouseInputState.IncorrectInput -> {
+                hideKeyboard()
+                Snackbar.make(
+                    binding.applicationConstraintLayout,
+                    R.string.wrong_input_house,
+                    Snackbar.LENGTH_INDEFINITE
+                )
+                    .setActionTextColor(resources.getColor(R.color.white, null))
+                    .setAction("OK") {}
+                    .show()
+            }
+        }
+    }
+
+    private fun hideKeyboard() {
+        val inputMethodManager =
+            activity?.getSystemService(Context.INPUT_METHOD_SERVICE) as InputMethodManager
+        inputMethodManager.hideSoftInputFromWindow(binding.applicationConstraintLayout.windowToken, 0)
+    }
+
+    private fun changeClearButtonVisibility(input: Editable?){
+        binding.clearButton.visibility = if (input.isNullOrEmpty()) View.GONE else View.VISIBLE
+    }
+
+    private fun addTextListenersForManualFields(){
+
+        binding.etHouse.addTextChangedListener(object : TextWatcher{
+            override fun beforeTextChanged(s: CharSequence?, start: Int, count: Int, after: Int) {}
+
+            override fun onTextChanged(s: CharSequence?, start: Int, before: Int, count: Int) {
+                viewModel.getHouseInput(s.toString())
             }
 
-        }
-        }
+            override fun afterTextChanged(s: Editable?) {}
+        })
 
+        binding.etSector.addTextChangedListener(object : TextWatcher{
+            override fun beforeTextChanged(s: CharSequence?, start: Int, count: Int, after: Int) {}
+
+            override fun onTextChanged(s: CharSequence?, start: Int, before: Int, count: Int) {
+                viewModel.getSectorInput(s.toString())
+            }
+
+            override fun afterTextChanged(s: Editable?) {}
+        })
+
+        binding.etFlat.addTextChangedListener(object : TextWatcher{
+            override fun beforeTextChanged(s: CharSequence?, start: Int, count: Int, after: Int) {}
+
+            override fun onTextChanged(s: CharSequence?, start: Int, before: Int, count: Int) {
+                viewModel.getFlatInput(s.toString())
+            }
+
+            override fun afterTextChanged(s: Editable?) {}
+        })
+    }
+
+    fun manageSendButtonVisibility(isEnable: Boolean){
+        binding.sendApplicationButton.isEnabled = isEnable
     }
 
     override fun onDestroyView() {

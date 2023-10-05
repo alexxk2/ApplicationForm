@@ -22,5 +22,6 @@
     <string name="application_accepted">Ваша заявка принята в работу</string>
     <string name="congratulations_image">congratulations image</string>
     <string name="application_details">Ваша зявка №%1$d принята в работу, оператор свяжется с Вами в ближайшее время.</string>
+    <string name="wrong_input_house">Такого дома нет в базе. Пожалуйста, введите номер дома и корпус вручную</string>
 
 </resources>

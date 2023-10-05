@@ -11,6 +11,7 @@
         android:id="@+id/btn_send_application"
         android:layout_width="wrap_content"
         android:text="@string/send_application"
+        android:textSize="18sp"
         android:layout_gravity="center"
         android:backgroundTint="@color/green"
         android:layout_height="wrap_content"/>

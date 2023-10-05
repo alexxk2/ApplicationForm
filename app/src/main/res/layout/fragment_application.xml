@@ -51,14 +51,17 @@
             android:dropDownAnchor="@id/auto_street_text"
             android:hint="@string/choose_street"
             android:paddingStart="20dp"
+            android:paddingVertical="24dp"
+            android:backgroundTint="@color/green"
             app:layout_constraintTop_toTopOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             android:layout_width="match_parent"
-            android:layout_height="64dp"/>
+            android:layout_height="wrap_content"/>
 
 
         <ImageButton
+            android:id="@+id/clear_button"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginEnd="16dp"
@@ -109,15 +112,12 @@
             <com.google.android.material.textfield.TextInputLayout
                 android:id="@+id/tl_house"
                 android:layout_width="match_parent"
-                android:layout_height="64dp"
+                android:layout_height="wrap_content"
                 android:layout_marginEnd="14dp"
                 android:layout_weight="30"
                 android:hint="@string/house"
                 android:textColorHint="@color/grey"
                 app:boxStrokeColor="@color/grey"
-                app:endIconCheckable="true"
-                app:endIconDrawable="@drawable/ic_close"
-                app:endIconMode="clear_text"
                 app:expandedHintEnabled="true"
                 app:hintAnimationEnabled="true"
                 app:hintEnabled="true"
@@ -128,7 +128,7 @@
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
                     android:imeOptions="actionGo"
-                    android:inputType="text" />
+                    android:inputType="number" />
 
             </com.google.android.material.textfield.TextInputLayout>
 
@@ -142,9 +142,6 @@
                 android:hint="@string/sector"
                 android:textColorHint="@color/grey"
                 app:boxStrokeColor="@color/grey"
-                app:endIconCheckable="true"
-                app:endIconDrawable="@drawable/ic_close"
-                app:endIconMode="clear_text"
                 app:expandedHintEnabled="true"
                 app:hintAnimationEnabled="true"
                 app:hintEnabled="true"
@@ -155,7 +152,7 @@
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
                     android:imeOptions="actionGo"
-                    android:inputType="text" />
+                    android:inputType="number" />
             </com.google.android.material.textfield.TextInputLayout>
 
 
@@ -167,9 +164,6 @@
                 android:hint="@string/flat"
                 android:textColorHint="@color/grey"
                 app:boxStrokeColor="@color/grey"
-                app:endIconCheckable="true"
-                app:endIconDrawable="@drawable/ic_close"
-                app:endIconMode="clear_text"
                 app:expandedHintEnabled="true"
                 app:hintAnimationEnabled="true"
                 app:hintEnabled="true"
@@ -180,7 +174,7 @@
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
                     android:imeOptions="actionGo"
-                    android:inputType="text" />
+                    android:inputType="number" />
 
             </com.google.android.material.textfield.TextInputLayout>
 
@@ -191,7 +185,7 @@
     </androidx.constraintlayout.widget.ConstraintLayout>
 
     <Button
-        android:id="@+id/create_playlist_button"
+        android:id="@+id/send_application_button"
         style="@style/CreateNewPlaylistButton"
         android:layout_width="0dp"
         android:layout_height="60dp"
