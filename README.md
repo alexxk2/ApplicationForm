@@ -44,6 +44,6 @@
 
 ## Gif flow приложения
 <br>**Экран Списки покупок**<br>
-<br> <img src="https://github.com/alexxk2/ShoppingList/blob/dev/app/src/main/res/drawable/lists_screen.gif" width="340" height="699" />  <br>
+<br> <img src="https://github.com/alexxk2/ApplicationForm/blob/master/app/src/main/res/drawable/screenshot.png" width="340" height="699" />  <br>
 
 
